@@ -17,49 +17,28 @@ w2      172.31.47.242
 -------------------------------------------------------
 For exmaple :
 	172.31.0.0/24  --->   tg.com 
-		172.31.10.231  -->  master.tg.com 
-		172.31.4.40  -->  wn1.tg.com
+	172.31.10.231  -->  master.tg.com 
+	172.31.4.40  -->  wn1.tg.com
 		
 -------------------------------------------------------	
 		
 	1.3  Public and private generate for communication between master and wn1   (ONLY ON MASTER)
-
-
-			Goto master node and generate public and private key :
+	     Goto master node and generate public and private key :
 			
-			
-				ssh-keygen  -t  rsa
-
-
-					now copy your public key and share with all worker node.
-					
-					
- cat  /root/.ssh/id_rsa.pub
-
+	     ssh-keygen  -t  rsa
+	    now copy your public key and share with all worker node.			
+ 	   cat  /root/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx6l0ojML6GTOoN4oIWN3B4vLoat9FSs72rw8JauS4hDvxb9Wro17XEG7mu7G5v3pbdmYd3eBipnJzxSz5K9zrGSTh40IiHypF8aRy/UJt2w+P7fR4VstAdm9hti5V+dLA6OtXxp4QiDR1gLvNqKHLBHW4iFqqfVQVrZjyn5On5fKi2AZ8Miee0HRd003Vk2Rls9oIDaagbA0IMDPzd9Q5+MXsFg0ukcmEftZ56No0pU3jD2BtFeT57rYiVLQVb5+eq6qopHZN/uCTDN6RikV6qcUmInrHcZHACSVolEL+8fZipbuVIRfdyo11Yq3xQWVsM/tOQ7tmHX6OdyLVy/zB root@master.tg.com
 
-
-
 	1.4  Now login to wn1  machine and open following file with user root
-	
-	
+ 
 		vi  /root/.ssh/authorized_keys
-
 			
-			
-			Now paster here your master node public key 
-			
-			
-			save and exit 
-
-
-			
+		Now paster here your master node public key 
+	        save and exit 
 			
 	1.5   Got master node and try to login from master to wn1 without using password  
-	
-	
-					ssh  root@wn1.tg.com 
-	
+	      ssh  root@wn1.tg.com 
 -----------------------------------------------------------------------------------------------
 
 Step-2  Kernel argument add / update 		[ Both VM ]
@@ -72,7 +51,7 @@ net.bridge.bridge-nf-call-iptables = 1
 
 save and exit 
 
-	2.1  sysctl --system
+2.1  sysctl --system
 
 -----------------------------------------------------------------------------
 
@@ -136,6 +115,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 Follow step 7.2 for master node only
 
 For my master node dont copy / paste it , kindly check your own join code. 
+
 ----------------------------------------------------------------------------------
 
 7.2
@@ -162,7 +142,9 @@ https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md
 
 you can run this command on MASTER NODE ONLY: 		[ master node ]  
 
+
 kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
 ------------------------------------------------------------------------------------
 
 7.4 		(only master node)
