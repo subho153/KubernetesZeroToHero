@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Relase.Name}}
+spec:
+  replicas: {{ .Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Chart.Name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}
+    spec:
+      containers:
+        - name: {{.Chart.Name}}
+          image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8089
+          resources:  
+            requests:
+              cpu: "{{.Values.resources.requests.cpu}}"
+              memory: "{{.Values.resources.requests.memory}}"
+            limits:
+              cpu: "{{.Values.resources.limits.cpu}}"
+              memory: "{{.Values.resources.limits.memory}}"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Relase.Name}}
+spec:
+  selector:
+    app: {{.Chart.Name}}
+  ports:
+    - protocol: TCP
+      port: {{.Values.service.port}}
+      targetPort: "{{.Values.service.targetPort}}
+  type: {{.Values.service.type}}
