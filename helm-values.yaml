@@ -1,0 +1,17 @@
+replicaCount: 3
+image: 
+  repository: dockerhubdemosubha1234/newwebappsecretsanta
+  tag: latest
+  PullPolicy: IfNotPresent
+resources:  
+  requests:
+    cpu: "500m"
+    memory: "512Mi"
+  limits:
+    cpu: "1000m"
+    memory: "1Gi"
+
+  service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 8089
